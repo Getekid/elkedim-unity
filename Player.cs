@@ -25,13 +25,18 @@ public class Player : MonoBehaviour
     private float fireRate = 0.5f;
     private float lastFired = -0.5f;
 
-    // Powerup upgrades
+    // Powerup upgrades.
     private bool tripleShotActive = false;
     private bool shieldActive = false;
 
-    // The Shield object
+    // The Shield object.
     [SerializeField]
     private GameObject shieldObject = null;
+
+    private int score;
+
+    // The UIManager object.
+    private UIManager uiManager;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +48,12 @@ public class Player : MonoBehaviour
         if (spawnManager == null)
         {
             Debug.LogError("spawnManager variable is null.");
+        }
+
+        uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+        if (uiManager == null)
+        {
+            Debug.LogError("uiManager variable is null.");
         }
     }
 
@@ -95,6 +106,7 @@ public class Player : MonoBehaviour
         }
 
         lives--;
+        uiManager.UpdateLives(lives);
         if (lives <= 0)
         {
             Destroy(this.gameObject);
@@ -140,5 +152,11 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(5.0f);
         shieldActive = false;
         shieldObject.SetActive(false);
+    }
+
+    public void AddScore()
+    {
+        score++;
+        uiManager.UpdateScore(score);
     }
 }

@@ -6,10 +6,16 @@ public class Enemy : MonoBehaviour
 {
     private float speed = 4.0f;
 
+    private Player player;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        player = GameObject.Find("Player").GetComponent<Player>();
+        if (player == null)
+        {
+            Debug.LogError("player variable is null.");
+        }
     }
 
     // Update is called once per frame
@@ -31,6 +37,7 @@ public class Enemy : MonoBehaviour
         {
             Destroy(other.gameObject);
             Destroy(this.gameObject);
+            player.AddScore();
         }
 
         if (other.tag == "Player")
