@@ -9,6 +9,9 @@ public class Enemy : MonoBehaviour
     private Player player;
     private Animator animator;
 
+    // The Audio Source object.
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +22,16 @@ public class Enemy : MonoBehaviour
         }
 
         animator = GetComponent<Animator>();
+        if (animator == null)
+        {
+            Debug.LogError("animator variable is null.");
+        }
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            Debug.LogError("audioSource variable is null.");
+        }
     }
 
     // Update is called once per frame
@@ -42,6 +55,7 @@ public class Enemy : MonoBehaviour
 
             animator.SetTrigger("OnEnemyDestruction");
             speed = 0;
+            audioSource.Play();
             Destroy(this.gameObject, 2.5f);
 
             player.AddScore();
@@ -56,6 +70,7 @@ public class Enemy : MonoBehaviour
                 
                 animator.SetTrigger("OnEnemyDestruction");
                 speed = 0;
+                audioSource.Play();
                 Destroy(this.gameObject, 2.5f);
             }
         }

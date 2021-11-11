@@ -44,6 +44,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject rightEngine;
 
+    // The Audio Source object.
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -60,6 +63,12 @@ public class Player : MonoBehaviour
         if (uiManager == null)
         {
             Debug.LogError("uiManager variable is null.");
+        }
+
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            Debug.LogError("audioSource variable is null.");
         }
     }
 
@@ -98,6 +107,7 @@ public class Player : MonoBehaviour
             {
                 Instantiate(laserPrefab, transform.position + new Vector3(0, 0.8f, 0), Quaternion.identity);
             }
+            audioSource.Play();
     	    lastFired = Time.time;
     	}
     }
