@@ -38,6 +38,12 @@ public class Player : MonoBehaviour
     // The UIManager object.
     private UIManager uiManager;
 
+    // The Left and Right Engine damage objects.
+    [SerializeField]
+    private GameObject leftEngine;
+    [SerializeField]
+    private GameObject rightEngine;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -107,6 +113,15 @@ public class Player : MonoBehaviour
 
         lives--;
         uiManager.UpdateLives(lives);
+
+        if (lives == 2)
+        {
+            leftEngine.gameObject.SetActive(true);
+        }
+        if (lives == 1)
+        {
+            rightEngine.SetActive(true);
+        }
         if (lives <= 0)
         {
             Destroy(this.gameObject);
