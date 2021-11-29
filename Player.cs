@@ -87,7 +87,7 @@ public class Player : MonoBehaviour
     	transform.Translate(Vector3.right * horizontalSpeed * horizontalInput * Time.deltaTime);
     	transform.Translate(Vector3.up * verticalSpeed * verticalInput * Time.deltaTime);
     	
-    	// Restring the translation to a specific range.
+    	// Restrict the translation to a specific range.
     	float xValue = Mathf.Clamp(transform.position.x, -9.1f, 9.1f);
     	transform.position = new Vector3(xValue, transform.position.y, transform.position.z);
     	float yValue = Mathf.Clamp(transform.position.y, -4.2f, 0.2f);
