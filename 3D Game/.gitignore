@@ -1,5 +1,7 @@
 # Ignore the Assets given by the course.
-/Assets/Game/
+/Assets/Game/*
+!/Assets/Game/Scripts/
+!/Assets/Game/Scripts.meta
 
 # This .gitignore file should be placed at the root of your Unity project directory
 #
@@ -14,7 +16,7 @@
 /[Mm]emoryCaptures/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
-!/[Aa]ssets/**/*.meta
+# !/[Aa]ssets/**/*.meta
 
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
