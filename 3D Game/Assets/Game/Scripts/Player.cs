@@ -24,6 +24,9 @@ public class Player : MonoBehaviour
 
     public bool hasCoin = false;
 
+    [SerializeField]
+    public GameObject weapon;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,7 +57,7 @@ public class Player : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         }
 
-        if (Input.GetMouseButton(0) && ammo > 0)
+        if (weapon.activeSelf && Input.GetMouseButton(0) && ammo > 0)
         {
             muzzleFlash.SetActive(true);
             if (!weaponAudio.isPlaying)
@@ -91,5 +94,10 @@ public class Player : MonoBehaviour
         ammo = maxAmmo;
         uiManager.UpdateAmmo(ammo);
         isReloading = false;
+    }
+
+    public void EnableWeapon()
+    {
+        weapon.SetActive(true);
     }
 }

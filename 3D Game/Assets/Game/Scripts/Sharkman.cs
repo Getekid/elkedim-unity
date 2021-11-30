@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Coin : MonoBehaviour
+public class Sharkman : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -21,15 +21,16 @@ public class Coin : MonoBehaviour
         if (other.tag == "Player" && Input.GetKeyDown(KeyCode.E))
         {
             Player player = other.GetComponent<Player>();
-            if (player != null)
+            if (player && player.hasCoin)
             {
-                player.hasCoin = true;
-
-                // Show the coin in the inventory.
+                player.hasCoin = false;
+                // Also update the Inventory.
                 UIManager uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
-                uiManager.ShowCoin();
-
-                Destroy(this.gameObject);
+                if (uiManager)
+                {
+                    uiManager.HideCoin();
+                }
+                player.EnableWeapon();
             }
         }
     }

@@ -7,6 +7,8 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField]
     private Text ammoText;
+    [SerializeField]
+    private GameObject coin;
 
     // Start is called before the first frame update
     void Start()
@@ -23,5 +25,15 @@ public class UIManager : MonoBehaviour
     public void UpdateAmmo(int count)
     {
         ammoText.text = "Ammo: " + count;
+    }
+
+    public void ShowCoin()
+    {
+        coin.SetActive(true);
+    }
+
+    public void HideCoin()
+    {
+        coin.SetActive(false);
     }
 }
