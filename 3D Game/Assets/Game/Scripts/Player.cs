@@ -11,10 +11,17 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private NavMeshAgent navMeshAgent;
+    [SerializeField]
+    private GameObject muzzleFlash;
+    [SerializeField]
+    private AudioSource weaponAudio;
 
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         controller = GetComponent<CharacterController>();
     }
 
@@ -27,5 +34,33 @@ public class Player : MonoBehaviour
         velocity = transform.TransformDirection(velocity);
         controller.Move(velocity * Time.deltaTime);
         transform.position = navMeshAgent.nextPosition;
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        if (Input.GetMouseButton(0))
+        {
+            muzzleFlash.SetActive(true);
+            if (!weaponAudio.isPlaying)
+            {
+                weaponAudio.Play();
+            }
+            
+            Ray ray = Camera.main.ViewportPointToRay(new Vector3(0, 0, 0));
+            RaycastHit hitInfo;
+
+            if (Physics.Raycast(ray, out hitInfo))
+            {
+                Debug.Log("hitInfo: " + hitInfo.transform.name);
+            }
+        }
+        else
+        {
+            muzzleFlash.SetActive(false);
+            weaponAudio.Stop();
+        }
     }
 }
