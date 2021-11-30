@@ -1,7 +1,12 @@
-# Script meta data.
-*.meta
+# For this project we only want the Assets and Packages to be tracked.
+/ProjectSettings/
+/UIElementsSchema/
 
-# Default Unity .gitignore template - keeping for reference.
+# Ignore the Assets given by the course.
+/Assets/Audio/
+/Assets/Materials/Shaders/
+/Assets/Sprites/
+
 # This .gitignore file should be placed at the root of your Unity project directory
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
