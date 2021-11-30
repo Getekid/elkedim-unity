@@ -16,6 +16,12 @@ public class Player : MonoBehaviour
     [SerializeField]
     private AudioSource weaponAudio;
 
+    private int ammo;
+    private int maxAmmo = 30;
+    private bool isReloading = false; // Helper variable to ensure Reload() won't be called again while running.
+
+    private UIManager uiManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,6 +29,11 @@ public class Player : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         controller = GetComponent<CharacterController>();
+
+        uiManager = GameObject.Find("Canvas").GetComponent<UIManager>();
+
+        ammo = maxAmmo;
+        uiManager.UpdateAmmo(ammo);
     }
 
     // Update is called once per frame
@@ -41,13 +52,15 @@ public class Player : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && ammo > 0)
         {
             muzzleFlash.SetActive(true);
             if (!weaponAudio.isPlaying)
             {
                 weaponAudio.Play();
             }
+            ammo--;
+            uiManager.UpdateAmmo(ammo);
             
             Ray ray = Camera.main.ViewportPointToRay(new Vector3(0, 0, 0));
             RaycastHit hitInfo;
@@ -62,5 +75,19 @@ public class Player : MonoBehaviour
             muzzleFlash.SetActive(false);
             weaponAudio.Stop();
         }
+
+        if (Input.GetKeyDown(KeyCode.R) && !isReloading)
+        {
+            isReloading = true;
+            StartCoroutine(Reload());
+        }
+    }
+
+    IEnumerator Reload()
+    {
+        yield return new WaitForSeconds(1.0f);
+        ammo = maxAmmo;
+        uiManager.UpdateAmmo(ammo);
+        isReloading = false;
     }
 }
