@@ -1,7 +1,3 @@
-# For this project we only want the Assets and Packages to be tracked.
-/ProjectSettings/
-/UIElementsSchema/
-
 # Ignore the Assets given by the course.
 /Assets/Audio/
 /Assets/Materials/Shaders/
